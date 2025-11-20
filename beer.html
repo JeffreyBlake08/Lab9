@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>99 Bottles of Beer</title>
+</head>
+<body id="main">
+    <button onclick="sing()">Sing the song</button>
+
+    <script>
+        function sing() {
+            let main = document.getElementById("main");
+            main.innerHTML = "<h1>99 Bottles of Beer</h1>";
+
+            // 99 down to 1
+            for (let i = 99; i >= 1; i--) {
+                let bottleWord = (i === 1) ? "bottle" : "bottles";
+                let next = i - 1;
+                let nextBottleWord = (next === 1) ? "bottle" : "bottles";
+
+                let line1 = i + " " + bottleWord +
+                    " of beer on the wall, " +
+                    i + " " + bottleWord + " of beer.";
+                let line2;
+
+                if (next === 0) {
+                    line2 = "Take one down and pass it around, no more bottles of beer on the wall.";
+                } else {
+                    line2 = "Take one down and pass it around, " +
+                            next + " " + nextBottleWord + " of beer on the wall.";
+                }
+
+                main.innerHTML += "<p>" + line1 + "<br>" + line2 + "</p>";
+            }
+
+            // Final verse
+            main.innerHTML += "<p>No more bottles of beer on the wall, no more bottles of beer.<br>" +
+                              "Go to the store and buy some more, 99 bottles of beer on the wall.</p>";
+        }
+    </script>
+</body>
+</html>
