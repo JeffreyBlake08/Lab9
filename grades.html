@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Results Calculator</title>
+</head>
+<body id="main">
+    <button onclick="getResults()">Enter your results</button>
+
+    <script>
+        function getResults() {
+            let main = document.getElementById("main");
+            main.innerHTML = '<button onclick="getResults()">Enter your results</button>';
+
+            let numSubjects = parseInt(
+                prompt("How many subjects do you take?"),
+                10
+            );
+
+            if (isNaN(numSubjects) || numSubjects <= 0) {
+                alert("Please enter a valid number of subjects.");
+                return;
+            }
+
+            let total = 0;
+            let marksList = "";
+
+            for (let i = 1; i <= numSubjects; i++) {
+                let mark = parseFloat(
+                    prompt("Enter mark for subject " + i + " (0–100):")
+                );
+
+                if (isNaN(mark) || mark < 0 || mark > 100) {
+                    alert("Invalid mark, please enter a number between 0 and 100.");
+                    i--;          // repeat this subject
+                    continue;
+                }
+
+                total += mark;
+                marksList += "Subject " + i + ": " + mark + "%<br>";
+            }
+
+            let average = total / numSubjects;
+
+            // BONUS: grade from A–F (you can tweak thresholds to match your course)
+            let grade;
+            if (average >= 70) {
+                grade = "A";
+            } else if (average >= 60) {
+                grade = "B";
+            } else if (average >= 50) {
+                grade = "C";
+            } else if (average >= 40) {
+                grade = "D";
+            } else {
+                grade = "F";
+            }
+
+            main.innerHTML += "<h2>Your Results</h2>";
+            main.innerHTML += marksList;
+            main.innerHTML += "<p><strong>Total:</strong> " + total.toFixed(2) + "</p>";
+            main.innerHTML += "<p><strong>Average:</strong> " + average.toFixed(2) + "%</p>";
+            main.innerHTML += "<p><strong>Grade:</strong> " + grade + "</p>";
+        }
+    </script>
+</body>
+</html>
