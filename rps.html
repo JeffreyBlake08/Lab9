@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rock Paper Scissors</title>
+</head>
+<body>
+    <button onclick="playGame()">Play Rock Paper Scissors</button>
+
+    <script>
+        function playGame() {
+            const choices = ["rock", "paper", "scissors"];
+            let hasWon = false;
+            let previousComputer = null;
+
+            // play at most 3 times
+            for (let round = 1; round <= 3 && !hasWon; round++) {
+
+                let user = prompt(
+                    "Round " + round +
+                    " of 3\n\nType rock, paper or scissors:"
+                );
+
+                if (user === null) {
+                    alert("Game cancelled.");
+                    return;
+                }
+
+                user = user.toLowerCase();
+
+                if (!choices.includes(user)) {
+                    alert("Invalid choice. Please type rock, paper or scissors.");
+                    round--;          // repeat this round
+                    continue;
+                }
+
+                // BONUS: computer changes guess each time (no repeat in a row)
+                let computer;
+                do {
+                    computer = choices[Math.floor(Math.random() * 3)];
+                } while (computer === previousComputer);
+
+                previousComputer = computer;
+
+                let message = "You chose: " + user +
+                              "\nComputer chose: " + computer + "\n";
+
+                if (user === computer) {
+                    message += "It's a draw.";
+                } else if (
+                    (user === "rock"     && computer === "scissors") ||
+                    (user === "paper"    && computer === "rock")     ||
+                    (user === "scissors" && computer === "paper")
+                ) {
+                    message += "You WIN! 🎉";
+                    hasWon = true;   // BONUS: stop if user wins
+                } else {
+                    message += "You lose.";
+                }
+
+                alert(message);
+            }
+
+            if (!hasWon) {
+                alert("Game over – you didn't win in 3 rounds.");
+            }
+        }
+    </script>
+</body>
+</html>
